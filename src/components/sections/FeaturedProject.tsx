@@ -153,7 +153,7 @@ export function FeaturedProject() {
                       transition={{ delay: reduced ? 0 : i * 0.05 }}
                       className="flex items-center gap-2.5 rounded-md border border-line-soft px-3 py-2.5 text-[13px] text-text-dim transition-colors hover:border-signal-2/40 hover:text-text"
                     >
-                      <Icon size={14} className="text-signal-2 shrink-0" />
+                      <Icon width={14} height={14} className="text-signal-2 shrink-0" />
                       {feature}
                     </motion.div>
                   );
