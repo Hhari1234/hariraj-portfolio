@@ -1,67 +1,88 @@
-import { ArrowUpRight } from "lucide-react";
-import { GithubIcon } from "@/components/ui/BrandIcons";
+import { ArrowUpRightIcon, GithubIcon } from "@/components/ui/BrandIcons";
 import type { ProjectEntry } from "@/types";
 
 interface ProjectCardProps {
   project: ProjectEntry;
+  onClick?: () => void;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, onClick }: ProjectCardProps) {
+  const isFeatured = project.featured;
+
   return (
-    <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface/40 p-6 transition-all duration-300 hover:border-signal-2/50 hover:-translate-y-1.5 hover:shadow-[0_18px_50px_-25px_rgba(91,124,250,0.5)]">
-      <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-signal-2/0 blur-3xl transition-all duration-500 group-hover:bg-signal-2/15" />
-
-      <div className="relative mb-5 flex items-center justify-between">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-signal/10 font-mono text-xs text-signal-2 transition-transform duration-300 group-hover:scale-110">
-          {project.name.slice(0, 2).toUpperCase()}
-        </div>
-        <div className="flex items-center gap-3">
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={`${project.name} source on GitHub`}
-              className="text-text-dim hover:text-signal-2 transition-colors"
-            >
-              <GithubIcon width={16} height={16} />
-            </a>
-          )}
-          {project.liveDemo ? (
-            <a
-              href={project.liveDemo}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={`${project.name} live demo`}
-              className="text-text-dim hover:text-signal-2 transition-colors"
-            >
-              <ArrowUpRight size={16} />
-            </a>
-          ) : (
-            <span
-              className="text-text-faint cursor-not-allowed"
-              title="Live demo not available"
-              aria-hidden="true"
-            >
-              <ArrowUpRight size={16} />
+    <article
+      className={`card card-gold relative overflow-hidden group ${isFeatured ? "col-span-1 row-span-2 md:col-span-2" : ""}`}
+      onClick={onClick}
+      style={{ cursor: onClick ? "pointer" : "default" }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-gold/5 via-transparent to-teal/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative p-6 md:p-8 flex flex-col h-full">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30">
+            <span className="font-mono text-xs font-medium text-gold">
+              {project.name.slice(0, 2).toUpperCase()}
             </span>
+          </div>
+          <div className="flex items-center gap-2">
+            {project.repoUrl && (
+              <a
+                href={project.repoUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={`${project.name} repository`}
+                className="link-icon p-1"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <GithubIcon width={18} height={18} />
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={`${project.name} live demo`}
+                className="link-icon p-1"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ArrowUpRightIcon width={18} height={18} />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <h3 className="font-display text-xl md:text-2xl font-medium text-text mb-3 group-hover:text-gold transition-colors">
+          {project.name}
+        </h3>
+
+        <p className="text-text-muted text-sm md:text-base leading-relaxed mb-4 flex-1">
+          {project.description}
+        </p>
+
+        {project.status && (
+          <span className="badge badge-gold mb-4 self-start">{project.status}</span>
+        )}
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.stack?.slice(0, 6).map((tech) => (
+            <span key={tech} className="tech-chip">{tech}</span>
+          ))}
+          {project.stack && project.stack.length > 6 && (
+            <span className="tech-chip text-text-faint">+{project.stack.length - 6} more</span>
           )}
         </div>
-      </div>
 
-      <h3 className="relative text-text font-medium text-[17px] mb-2">{project.name}</h3>
-      <p className="relative text-text-dim text-sm leading-relaxed flex-1">{project.description}</p>
-
-      <div className="relative mt-5 flex flex-wrap gap-1.5">
-        {project.tech.map((t) => (
-          <span
-            key={t}
-            className="rounded-md border border-line-soft px-2 py-1 font-mono text-[11px] text-text-faint transition-colors group-hover:border-signal-2/30 group-hover:text-text-dim"
-          >
-            {t}
-          </span>
-        ))}
+        {project.highlights && (
+          <ul className="space-y-2 text-sm text-text-muted">
+            {project.highlights.slice(0, 4).map((highlight, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0" />
+                {highlight}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-    </div>
+    </article>
   );
 }

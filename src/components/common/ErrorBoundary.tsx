@@ -18,17 +18,15 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: unknown) {
-    // Swallow rendering errors from optional/decorative subtrees (e.g. 3D scene)
-    // so a failure there never takes down the rest of the page.
     this.props.onError?.();
     if (import.meta.env.DEV) {
-      console.warn("Recovered from a render error in a non-critical section:", error);
+      console.warn("Recovered from a render error:", error);
     }
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback;
+      return this.props.fallback ?? null;
     }
     return this.props.children;
   }

@@ -1,57 +1,54 @@
 import { motion } from "framer-motion";
 
-/**
- * Circular profile photo with an animated gradient ring, glassmorphism frame,
- * cyan/blue/purple glow and a subtle floating animation.
- *
- * This is a plain, always-rendered component — it does NOT depend on Three.js,
- * so the profile photo always displays even if the 3D layer fails.
- */
 export function ProfilePhoto() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className="relative w-[min(72vw,340px)] h-[min(72vw,340px)] sm:w-[380px] sm:h-[380px] lg:w-[400px] lg:h-[400px] animate-hero-float"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="relative w-full max-w-[360px] aspect-square mx-auto"
       role="img"
       aria-label="Hariraj Kuragayala - Software Engineer"
     >
-      {/* Animated gradient ring */}
-      <div className="absolute -inset-3 rounded-full overflow-hidden pointer-events-none animate-gradient-ring">
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background:
-              "conic-gradient(from 0deg, #22d3ee, #5b7cfa, #a78bfa, #22d3ee)",
-          }}
+      <div className="absolute inset-0 rounded-2xl border border-gold/30 shadow-gold" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/5 via-transparent to-teal/5" />
+      <picture className="relative rounded-2xl overflow-hidden">
+        <source
+          srcSet="
+            /assets/profile/profile-400w.avif 400w,
+            /assets/profile/profile-800w.avif 800w,
+            /assets/profile/profile-1200w.avif 1200w
+          "
+          type="image/avif"
+          sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 360px"
         />
-      </div>
-
-      {/* Glow halo */}
-      <div className="absolute -inset-6 rounded-full bg-signal/20 blur-2xl pointer-events-none" />
-      <div className="absolute -inset-10 rounded-full bg-signal-3/10 blur-3xl pointer-events-none" />
-
-      {/* Glassmorphism frame */}
-      <div className="absolute inset-0 rounded-full glass shadow-[0_20px_60px_-15px_rgba(91,124,250,0.5)] ring-1 ring-signal-2/30 overflow-hidden">
-        {/* Photo */}
+        <source
+          srcSet="
+            /assets/profile/profile-400w.webp 400w,
+            /assets/profile/profile-800w.webp 800w,
+            /assets/profile/profile-1200w.webp 1200w
+          "
+          type="image/webp"
+          sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 360px"
+        />
         <img
-          src="/assets/profile/profile-photo.webp"
+          src="/assets/profile/profile-1200w.jpg"
+          srcSet="
+            /assets/profile/profile-400w.jpg 400w,
+            /assets/profile/profile-800w.jpg 800w,
+            /assets/profile/profile-1200w.jpg 1200w
+          "
+          sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 360px"
           alt="Hariraj Kuragayala - Software Engineer"
-          width={640}
-          height={832}
+          width={360}
+          height={360}
           loading="eager"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-top"
-          onError={(e) => {
-            // Fallback to JPG if WebP is not supported/available
-            const img = e.currentTarget;
-            if (img.src.includes(".webp")) {
-              img.src = "/assets/profile/profile-photo.jpg";
-            }
-          }}
+          className="w-full h-full object-cover object-top"
         />
-      </div>
+      </picture>
+      <div className="absolute -bottom-6 -right-6 w-16 h-16 rounded-2xl border-2 border-gold bg-surface/80 backdrop-blur-sm flex items-center justify-center" />
+      <div className="absolute -top-4 -left-4 w-2 h-2 rounded-full bg-gold animate-pulse-dot" />
     </motion.div>
   );
 }

@@ -10,9 +10,9 @@ import type {
 export const profile = {
   name: "Hariraj Kuragayala",
   initials: "HK",
-  location: "Nizamabad, Telangana, India",
+  location: "Telangana, India",
   email: "hariraj.kuragayala@gmail.com",
-  phone: "+91 9603296028",
+  phone: "9603296028",
   linkedin: "https://www.linkedin.com/in/hariraj-k-63735b261/",
   github: "https://github.com/Hhari1234",
   graduationYear: "2026",
@@ -24,10 +24,11 @@ export const profile = {
     "Full Stack Developer",
   ],
   summary:
-    "Aspiring Software Engineer with an Integrated M.Tech in Software Engineering and internship experience at Nokia in Java backend development, software testing, and DevOps. Focused on building intelligent software, scalable backend systems, and modern full-stack applications.",
+    "Integrated M.Tech graduate in Software Engineering from VIT Vellore with software engineering internship experience at Nokia. Experienced in developing and validating backend applications, troubleshooting software issues, investigating test failures, and improving code quality. Contributed to automated testing and build workflows, and developed full-stack applications and developer tools. Strong problem-solving foundation with a focus on writing reliable, maintainable code and following software development best practices.",
   heroDescription:
-    "Build intelligent software, scalable backend systems, and modern full-stack applications.",
+    "Integrated M.Tech graduate in Software Engineering from VIT Vellore. Experienced in backend development, testing, and DevOps at Nokia. Building full-stack applications and AI-powered developer tools.",
   resumeUrl: "/resume.pdf",
+  availability: "Open to Software Engineer roles (Backend / AI)",
 };
 
 export const navLinks: NavLink[] = [
@@ -61,90 +62,55 @@ export const education: EducationEntry[] = [
   },
 ];
 
-export const aboutFocusAreas = [
-  {
-    id: "backend",
-    title: "Backend Engineering",
-    description:
-      "Java and Spring Boot services, REST APIs, and FastAPI backends built for reliability and clarity.",
-    icon: "server",
-  },
-  {
-    id: "ai",
-    title: "AI & RAG",
-    description:
-      "Retrieval-Augmented Generation pipelines, LLM integration, prompt engineering, and vector search with ChromaDB.",
-    icon: "cpu",
-  },
-  {
-    id: "fullstack",
-    title: "Full Stack Development",
-    description:
-      "End-to-end applications with React, TypeScript, Node.js, and Express across the full request lifecycle.",
-    icon: "layers",
-  },
-  {
-    id: "devops",
-    title: "DevOps & Testing",
-    description:
-      "Docker-based pipelines, JUnit/JaCoCo coverage, SonarQube quality gates, and Linux/Gradle build workflows.",
-    icon: "terminal",
-  },
-];
-
 export const skillCategories: SkillCategory[] = [
   {
     id: "programming",
-    label: "Programming",
+    label: "Programming Languages",
     icon: "code",
-    skills: ["Java", "Python", "C++", "C", "SQL"],
+    skills: ["Java", "Python", "SQL"],
   },
   {
-    id: "frontend",
-    label: "Frontend",
-    icon: "layout",
-    skills: ["React", "TypeScript", "HTML", "CSS", "Tailwind CSS"],
+    id: "cs-fundamentals",
+    label: "Computer Science Fundamentals",
+    icon: "graduation-cap",
+    skills: ["Data Structures and Algorithms", "Object-Oriented Programming"],
   },
   {
     id: "backend",
-    label: "Backend",
+    label: "Backend Development",
     icon: "server",
-    skills: ["Spring Boot", "FastAPI", "Node.js", "Express.js", "REST APIs"],
+    skills: ["Spring Boot", "FastAPI", "Node.js", "Express.js", "REST APIs", "JSON"],
   },
   {
-    id: "ai-ml",
-    label: "AI & ML",
-    icon: "cpu",
-    skills: ["LLMs", "RAG", "Prompt Engineering", "Vector Search", "ChromaDB"],
+    id: "frontend",
+    label: "Frontend Development",
+    icon: "layout",
+    skills: ["React.js", "TypeScript", "HTML", "CSS"],
   },
   {
     id: "databases",
     label: "Databases",
     icon: "database",
-    skills: ["Aerospike", "PostgreSQL", "MySQL", "MongoDB"],
+    skills: ["PostgreSQL", "MySQL", "MongoDB", "ChromaDB"],
   },
   {
     id: "devops",
-    label: "DevOps",
+    label: "DevOps and Tools",
     icon: "shield-check",
-    skills: ["Docker", "Git", "Linux", "Gradle", "Maven", "Shell Scripting"],
+    skills: ["Git", "Docker", "Jenkins", "Linux", "Gradle", "Shell Scripting"],
   },
   {
     id: "testing",
-    label: "Testing",
+    label: "Testing and Code Quality",
     icon: "terminal",
-    skills: ["JUnit", "JaCoCo", "SonarQube", "Postman", "JIRA"],
+    skills: ["Unit Testing", "Module Testing", "Debugging", "Root-Cause Analysis", "SonarQube", "JaCoCo"],
   },
-];
-
-export const coreConcepts: string[] = [
-  "Data Structures & Algorithms",
-  "Object-Oriented Programming",
-  "DBMS",
-  "Operating Systems",
-  "Computer Networks",
-  "Concurrency",
-  "Debugging",
+  {
+    id: "ai-llm",
+    label: "AI / LLM",
+    icon: "cpu",
+    skills: ["LLMs", "RAG", "Vector Search", "Sentence-Transformer Embeddings", "Gemini API", "GitHub Actions"],
+  },
 ];
 
 export const experience: ExperienceEntry[] = [
@@ -154,55 +120,66 @@ export const experience: ExperienceEntry[] = [
     location: "Bangalore",
     duration: "Aug 2025 – Jun 2026",
     bullets: [
-      "Resolved SonarQube-reported code quality issues by fixing bugs, eliminating code smells, and improving maintainability across Java-based application modules.",
-      "Executed UTMT (Unit and Module Tests), analyzed execution logs, investigated test failures, and resolved configuration and application-level defects to improve test stability.",
-      "Designed and integrated JaCoCo code coverage support into a Docker-based build pipeline, enabling automated coverage report generation as part of the testing workflow.",
-      "Improved code coverage reporting accuracy by analyzing zero-coverage packages, configuring exclusions, and validating coverage metrics for meaningful quality assessment.",
-      "Enhanced system observability and reliability through logging improvements, root cause analysis, and investigation of race-condition-related issues in concurrent application workflows.",
-      "Contributed to security compliance initiatives, including BPT, Anchor Tag, CIS-CAT, and EOL remediation activities by upgrading dependencies, fixing file permissions, and addressing security findings.",
-      "Worked extensively with Docker containers, Linux environments, Gradle builds, and Shell scripting to support application development, testing, and deployment activities.",
-      "Collaborated with senior engineers to debug software defects, analyze application behavior, and implement fixes that improved overall software quality and system stability.",
+      "Resolved SonarQube code-quality findings in Java-based backend applications and validated fixes through automated builds and testing workflows.",
+      "Executed Unit and Module Tests (UTMT), analyzed execution logs, investigated failing test cases, and performed root-cause analysis to troubleshoot application and environment issues.",
+      "Integrated JaCoCo code coverage into Docker-based build and CI/CD workflows to automate coverage report generation and validation.",
+      "Updated and validated Component and Applicability attributes in Reset Alarm definitions to support accurate alarm configuration and handling.",
+      "Implemented and validated ECR rules for Reset Alarm definitions to match alarm parameters and target the intended alarm instance.",
+      "Used Java, Gradle, Docker, Linux, and Shell Scripting to execute tests, investigate build failures, and troubleshoot runtime and environment issues.",
+      "Automated development and testing setup tasks using Shell scripts, including environment configuration, test execution, and diagnostic workflows.",
     ],
   },
 ];
 
-export const featuredProject: ProjectEntry = {
-  id: "codeforge-ai",
-  name: "CodeForge AI",
-  description:
-    "A full-stack AI developer platform featuring AI-powered code generation, documentation, code review, repository analysis, RAG chat, and project management.",
-  tech: ["React", "TypeScript", "FastAPI", "PostgreSQL", "ChromaDB", "JWT", "Docker"],
-  bullets: [
-    "Architected a full-stack AI developer platform with 6 AI-powered modules (code generation, documentation, code review, repository analysis, RAG chat, and project management) using React, TypeScript, FastAPI, and a layered service-oriented backend.",
-    "Built a Retrieval-Augmented Generation (RAG) pipeline using custom chunking, sentence-transformer embeddings, ChromaDB vector search, and LLM integration for natural-language codebase Q&A.",
-    "Engineered secure authentication and repository ingestion with JWT, bcrypt password hashing, ZIP/GitHub import, zip-bomb protection, per-user workspace isolation, and PostgreSQL-backed persistence.",
-    "Containerized the complete application with Docker, enabling reproducible local development, multi-service deployment, and scalable backend/frontend/database orchestration.",
-  ],
-  github: "https://github.com/Hhari1234",
-  liveDemo: null,
-  featured: true,
-};
-
-export const featuredProjectFeatures: string[] = [
-  "AI Code Generation",
-  "AI Documentation",
-  "Code Review",
-  "Repository Analysis",
-  "RAG Chat",
-  "Project Management",
-  "GitHub Import",
-  "ZIP Upload",
-  "JWT Authentication",
-  "Workspace Isolation",
-];
-
-export const architectureStages: string[] = [
-  "Frontend",
-  "FastAPI Backend",
-  "AI Services",
-  "RAG Pipeline",
-  "ChromaDB",
-  "PostgreSQL",
+export const featuredProjects: ProjectEntry[] = [
+  {
+    id: "codeforge-ai",
+    name: "CodeForge AI",
+    description:
+      "A full-stack AI developer platform with six modules for code generation, documentation, code review, repository analysis, RAG-based chat, and project management.",
+    tech: ["React", "TypeScript", "FastAPI", "PostgreSQL", "ChromaDB", "JWT", "Docker"],
+    bullets: [
+      "Developed a full-stack developer platform using React, TypeScript, and FastAPI with six modules for code generation, documentation, code review, repository analysis, RAG-based chat, and project management.",
+      "Built a Retrieval-Augmented Generation (RAG) pipeline using code chunking, sentence-transformer embeddings, ChromaDB vector search, and LLMs, secured with JWT authentication, bcrypt password hashing, and per-user workspace isolation using PostgreSQL.",
+    ],
+    repoUrl: null,
+    liveUrl: null,
+    featured: true,
+    status: "Source only",
+    highlights: [
+      "6 AI-powered modules",
+      "RAG pipeline with sentence-transformer embeddings",
+      "ChromaDB vector search",
+      "JWT auth + bcrypt hashing",
+      "Per-user workspace isolation",
+      "Docker containerized",
+    ],
+    stack: ["React", "TypeScript", "FastAPI", "PostgreSQL", "ChromaDB", "JWT", "Docker"],
+  },
+  {
+    id: "ai-code-reviewer",
+    name: "AI Code Reviewer",
+    description:
+      "An automated GitHub pull-request review tool using Python, GitHub Actions, and REST APIs to analyze code changes and publish structured review findings with severity-based and security-focused checks.",
+    tech: ["Python", "Gemini API", "GitHub Actions", "GitHub REST API", "Docker"],
+    bullets: [
+      "Developed an automated GitHub pull-request review tool using Python, GitHub Actions, and REST APIs to analyze code changes and publish structured review findings with severity-based and security-focused checks.",
+      "Implemented severity-based and security-focused code analysis, LLM response parsing, GitHub REST API integration, and retry/backoff handling, automated end-to-end using GitHub Actions.",
+    ],
+    repoUrl: null,
+    liveUrl: null,
+    featured: true,
+    status: "Source only",
+    highlights: [
+      "Automated PR review via GitHub Actions",
+      "Gemini API for code analysis",
+      "Severity-based & security-focused checks",
+      "LLM response parsing",
+      "Retry/backoff handling",
+      "Docker containerized",
+    ],
+    stack: ["Python", "Gemini API", "GitHub Actions", "GitHub REST API", "Docker"],
+  },
 ];
 
 export const projects: ProjectEntry[] = [
@@ -210,56 +187,115 @@ export const projects: ProjectEntry[] = [
     id: "house-hunt",
     name: "House Hunt",
     description:
-      "A full-stack rental property platform with search and filter functionality built using the MERN stack.",
-    tech: ["React.js", "Node.js", "MongoDB", "REST APIs"],
-    github: "https://github.com/Hhari1234",
-    liveDemo: null,
+      "A full-stack rental property application using the MERN stack, with REST APIs for property listings, searching, and filtering.",
+    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs"],
+    bullets: [
+      "Developed a full-stack rental property application using the MERN stack, with REST APIs for property listings, searching, and filtering.",
+      "Built a React.js frontend connected to an Express.js and MongoDB backend, and deployed the application on Render.",
+    ],
+    repoUrl: null,
+    liveUrl: null,
+    featured: false,
+    status: "Deployed on Render",
+    highlights: [
+      "MERN stack (MongoDB, Express.js, React.js, Node.js)",
+      "REST APIs for listings, search, filter",
+      "Deployed on Render",
+    ],
+    stack: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs"],
   },
   {
     id: "weather-forecasting",
     name: "Weather Forecasting Application",
     description:
-      "A Spring Boot backend integrating the OpenWeather API to serve real-time forecast data through REST endpoints.",
+      "A Java Spring Boot backend that integrates the OpenWeather API and provides real-time weather forecast data through REST endpoints.",
     tech: ["Java", "Spring Boot", "REST APIs", "JSON"],
-    github: "https://github.com/Hhari1234",
-    liveDemo: null,
+    bullets: [
+      "Developed a Java Spring Boot backend that integrates the OpenWeather API and provides real-time weather forecast data through REST endpoints.",
+      "Parsed JSON responses from the external API into structured results and deployed the application on Render.",
+    ],
+    repoUrl: null,
+    liveUrl: null,
+    featured: false,
+    status: "Deployed on Render",
+    highlights: [
+      "Spring Boot backend",
+      "OpenWeather API integration",
+      "JSON parsing to structured results",
+      "Deployed on Render",
+    ],
+    stack: ["Java", "Spring Boot", "REST APIs", "JSON"],
   },
   {
     id: "wastescan",
     name: "WasteScan",
     description:
-      "A real-time computer-vision waste classification system integrating OpenCV with Arduino-based sorting hardware.",
+      "A computer-vision-based waste sorting system using Python and OpenCV for image processing, integrated with Arduino-controlled sorting hardware.",
     tech: ["Python", "OpenCV", "Arduino"],
-    github: "https://github.com/Hhari1234",
-    liveDemo: null,
+    bullets: [
+      "Built a computer-vision-based waste sorting system using Python and OpenCV for image processing, integrated with Arduino-controlled sorting hardware.",
+      "Processed camera input to identify waste items and triggered the Arduino hardware to sort them automatically.",
+    ],
+    repoUrl: null,
+    liveUrl: null,
+    featured: false,
+    status: "Hardware project",
+    highlights: [
+      "Python + OpenCV for computer vision",
+      "Arduino-controlled sorting hardware",
+      "Real-time camera input processing",
+      "Automated waste classification & sorting",
+    ],
+    stack: ["Python", "OpenCV", "Arduino"],
   },
 ];
 
 export const certifications: CertificationEntry[] = [
   {
-    name: "Azure AI Fundamentals",
-    issuer: "Microsoft",
+    name: "Agentic AI Certified Foundations Associate",
+    issuer: "Oracle University",
+    year: null,
     url: null,
+    credentialUrl: null,
   },
   {
-    name: "MERN Stack Developer",
-    issuer: "SmartBridge / MongoDB Smart Internz",
+    name: "Microsoft Certified: Azure AI Fundamentals",
+    issuer: "Microsoft",
+    year: null,
     url: null,
+    credentialUrl: null,
+  },
+  {
+    name: "Full Stack Developer (MERN Stack)",
+    issuer: "SmartBridge / MongoDB Smart Internz",
+    year: null,
+    url: null,
+    credentialUrl: null,
   },
   {
     name: "Data Science",
     issuer: "VIT SCORE Department",
+    year: null,
     url: null,
+    credentialUrl: null,
   },
 ];
 
-export const techBadges: string[] = [
-  "Java",
-  "Python",
-  "React",
-  "TypeScript",
-  "FastAPI",
-  "Spring Boot",
-  "Docker",
-  "AI / RAG",
+export const featuredProject = featuredProjects[0];
+export const featuredProjectFeatures = [
+  "Code generation",
+  "Documentation",
+  "Code review",
+  "Repository analysis",
+  "RAG chat",
+  "Project management",
 ];
+export const architectureStages = [
+  "Prompt + repo context",
+  "Code chunking + embeddings",
+  "Vector search + retrieval",
+  "LLM reasoning",
+  "Project workspace output",
+];
+
+export const siteUrl = "https://hariraj-portfolio.vercel.app";

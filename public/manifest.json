@@ -1,11 +1,11 @@
 {
-  "name": "Hariraj Kuragayala | Software Engineer & AI Developer",
+  "name": "Hariraj Kuragayala | Software Engineer",
   "short_name": "Hariraj K.",
-  "description": "Software Engineer and AI Developer portfolio.",
+  "description": "Portfolio of Hariraj Kuragayala, a Software Engineer focused on backend systems, AI applications, and full-stack engineering.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#05070d",
-  "theme_color": "#05070d",
+  "background_color": "#0B0C0F",
+  "theme_color": "#0B0C0F",
   "icons": [
     {
       "src": "/favicon.svg",

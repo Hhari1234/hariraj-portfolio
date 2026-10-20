@@ -3,7 +3,6 @@ import { LoadingScreen } from "@/components/layout/LoadingScreen";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Footer } from "@/components/layout/Footer";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 
 const About = lazy(() => import("@/components/sections/About").then((m) => ({ default: m.About })));
 const Skills = lazy(() => import("@/components/sections/Skills").then((m) => ({ default: m.Skills })));
@@ -17,7 +16,7 @@ const Contact = lazy(() => import("@/components/sections/Contact").then((m) => (
 function SectionFallback() {
   return (
     <div className="py-24 flex items-center justify-center">
-      <div className="h-6 w-6 rounded-full border-2 border-line border-t-signal-2 animate-spin" aria-hidden="true" />
+      <div className="h-6 w-6 rounded-full border-2 border-border border-t-gold animate-spin" aria-hidden="true" />
       <span className="sr-only">Loading section</span>
     </div>
   );
@@ -27,9 +26,8 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-<>
+    <>
       {loading && <LoadingScreen onDone={() => setLoading(false)} />}
-      <CustomCursor />
       <Navbar />
       <main>
         <Hero />

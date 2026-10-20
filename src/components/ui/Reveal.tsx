@@ -2,11 +2,10 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 interface RevealProps {
-  children: ReactNode;
+  children?: ReactNode;
   delay?: number;
   y?: number;
   className?: string;
-  as?: "div";
 }
 
 export function Reveal({ children, delay = 0, y = 20, className = "" }: RevealProps) {
@@ -14,8 +13,8 @@ export function Reveal({ children, delay = 0, y = 20, className = "" }: RevealPr
     <motion.div
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, delay, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={className}
     >
       {children}

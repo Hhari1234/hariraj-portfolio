@@ -1,42 +1,35 @@
 import { motion } from "framer-motion";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { ArrowUpRightIcon } from "@/components/ui/BrandIcons";
 
-interface ArchitectureFlowProps {
+type ArchitectureFlowProps = {
   stages: string[];
-}
+};
 
 export function ArchitectureFlow({ stages }: ArchitectureFlowProps) {
-  const reduced = useReducedMotion();
-
   return (
-    <div className="relative flex flex-col items-stretch" aria-label="System architecture flow">
-      {stages.map((stage, i) => (
-        <div key={stage} className="relative">
+    <div className="card p-4 md:p-5">
+      <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-text-faint mb-4">
+        Pipeline
+      </div>
+
+      <div className="space-y-3">
+        {stages.map((stage, index) => (
           <motion.div
-            initial={{ opacity: 0, x: -12 }}
+            key={stage}
+            initial={{ opacity: 0, x: 12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="relative z-10 flex items-center gap-3 rounded-lg border border-line bg-surface/70 px-4 py-3"
+            transition={{ duration: 0.35, delay: index * 0.06 }}
+            className="flex items-center gap-3 rounded-xl border border-border bg-surface-elevated px-3 py-2.5"
           >
-            <span className="font-mono text-[10px] text-signal-2">{String(i + 1).padStart(2, "0")}</span>
-            <span className="font-mono text-sm text-text">{stage}</span>
-          </motion.div>
-
-          {i < stages.length - 1 && (
-            <div className="relative flex justify-start pl-[19px]">
-              <div className="h-6 w-px bg-line-soft" />
-              {!reduced && (
-                <motion.div
-                  className="absolute top-0 h-2 w-px bg-signal-2"
-                  animate={{ y: [0, 24, 0], opacity: [0, 1, 0] }}
-                  transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.25, ease: "easeInOut" }}
-                />
-              )}
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-gold/30 bg-gold/10 font-mono text-[11px] text-gold">
+              {index + 1}
             </div>
-          )}
-        </div>
-      ))}
+            <div className="flex-1 text-sm text-text-muted">{stage}</div>
+            {index < stages.length - 1 && <ArrowUpRightIcon width={14} height={14} className="text-gold" />}
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

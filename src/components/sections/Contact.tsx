@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { profile } from "@/data/profile";
+import { MailIcon, PhoneIcon, MapPinIcon, GithubIcon, LinkedinIcon, SendIcon, CheckIcon, AlertCircleIcon } from "@/components/ui/BrandIcons";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -16,26 +16,135 @@ const isEmailJsConfigured = Boolean(
 );
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-  { icon: Phone, label: "Phone", value: profile.phone, href: `tel:${profile.phone.replace(/\s+/g, "")}` },
-  { icon: MapPin, label: "Location", value: profile.location, href: undefined },
+  { icon: MailIcon, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+  { icon: PhoneIcon, label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
+  { icon: MapPinIcon, label: "Location", value: profile.location, href: undefined },
   { icon: GithubIcon, label: "GitHub", value: "github.com/Hhari1234", href: profile.github },
   { icon: LinkedinIcon, label: "LinkedIn", value: "linkedin.com/in/hariraj-k-63735b261", href: profile.linkedin },
 ];
+
+function InputField({
+  label,
+  id,
+  type = "text",
+  value,
+  onChange,
+  required,
+  placeholder,
+  autoComplete,
+  error,
+}: {
+  label: string;
+  id: string;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  placeholder?: string;
+  autoComplete?: string;
+  error?: string;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="block font-mono text-xs text-text-muted mb-2">
+        {label} {required && <span className="text-gold">*</span>}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required={required}
+        autoComplete={autoComplete}
+        value={value}
+        onChange={onChange}
+        className={`w-full rounded-lg border px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none transition-colors ${
+          error
+            ? "border-red-500 focus:border-red-500 bg-red-500/5"
+            : "border-border focus:border-gold bg-surface-elevated"
+        }`}
+        placeholder={placeholder}
+        aria-invalid={error ? "true" : "false"}
+        aria-describedby={error ? `${id}-error` : undefined}
+      />
+      {error && (
+        <p id={`${id}-error`} className="mt-1.5 font-mono text-xs text-red-500" role="alert">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function TextareaField({
+  label,
+  id,
+  value,
+  onChange,
+  required,
+  placeholder,
+  error,
+}: {
+  label: string;
+  id: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  required?: boolean;
+  placeholder?: string;
+  error?: string;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="block font-mono text-xs text-text-muted mb-2">
+        {label} {required && <span className="text-gold">*</span>}
+      </label>
+      <textarea
+        id={id}
+        name={id}
+        required={required}
+        rows={5}
+        value={value}
+        onChange={onChange}
+        className={`w-full resize-none rounded-lg border px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none transition-colors ${
+          error
+            ? "border-red-500 focus:border-red-500 bg-red-500/5"
+            : "border-border focus:border-gold bg-surface-elevated"
+        }`}
+        placeholder={placeholder}
+        aria-invalid={error ? "true" : "false"}
+        aria-describedby={error ? `${id}-error` : undefined}
+      />
+      {error && (
+        <p id={`${id}-error`} className="mt-1.5 font-mono text-xs text-red-500" role="alert">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
 
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!name.trim()) newErrors.name = "Name is required";
+    if (!email.trim()) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Invalid email format";
+    if (!message.trim()) newErrors.message = "Message is required";
+    else if (message.trim().length < 10) newErrors.message = "Message must be at least 10 characters";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!name || !email || !message) return;
+    if (!validate()) return;
 
     if (!isEmailJsConfigured) {
-      // Graceful fallback: open the user's mail client instead of failing silently
-      // or throwing a console error.
       const subject = encodeURIComponent(`Portfolio contact from ${name}`);
       const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
       window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
@@ -56,146 +165,130 @@ export function Contact() {
       setName("");
       setEmail("");
       setMessage("");
+      setErrors({});
     } catch {
       setStatus("error");
     }
   }
 
   return (
-    <section id="contact" className="py-24 md:py-32 relative">
-      <div className="absolute inset-0 bg-grid opacity-[0.15] [mask-image:radial-gradient(ellipse_55%_55%_at_90%_50%,black,transparent)]" />
-      <div className="container-page relative">
+    <section id="contact" className="py-20 md:py-28 relative">
+      <div className="film-grain" aria-hidden="true" />
+      <div className="container relative">
         <SectionHeader
-          index="08"
+          index="07"
           eyebrow="Contact"
           title="Let's build something meaningful."
+          description="Open to Software Engineer roles (Backend / AI). Reach out via email, LinkedIn, or the form below."
+          align="center"
         />
 
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 max-w-5xl mx-auto">
           <Reveal>
-            <ul className="space-y-4">
+            <div className="space-y-4">
               {contactInfo.map((item) => {
                 const Icon = item.icon;
-                const content = (
-                  <>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-signal/10 text-signal-2 shrink-0">
-                      <Icon width={17} height={17} />
+                return (
+                  <motion.a
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    href={item.href ?? "#"}
+                    target={item.href?.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href?.startsWith("http") ? "noreferrer noopener" : undefined}
+                    className={`flex items-center gap-4 card p-4 card-gold group ${!item.href ? "cursor-default" : ""}`}
+                    aria-label={item.label}
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
                     </div>
                     <div>
-                      <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-faint">
-                        {item.label}
-                      </div>
+                      <div className="font-mono text-xs uppercase tracking-wider text-text-muted">{item.label}</div>
                       <div className="text-text text-sm mt-0.5 break-words">{item.value}</div>
                     </div>
-                  </>
-                );
-                return (
-                  <li key={item.label}>
-                    {item.href ? (
-                      <a
-                        href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined}
-                        className="flex items-center gap-4 rounded-xl border border-line bg-surface/40 p-4 transition-colors hover:border-signal-2/50"
-                      >
-                        {content}
-                      </a>
-                    ) : (
-                      <div className="flex items-center gap-4 rounded-xl border border-line bg-surface/40 p-4">
-                        {content}
-                      </div>
-                    )}
-                  </li>
+                  </motion.a>
                 );
               })}
-            </ul>
+            </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <form
-              onSubmit={handleSubmit}
-              className="rounded-2xl border border-line glass p-6 md:p-8"
-              noValidate
-            >
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div className="sm:col-span-1">
-                  <label htmlFor="name" className="block font-mono text-xs text-text-dim mb-2">
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    autoComplete="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-lg border border-line bg-void/50 px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none focus:border-signal-2/60"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div className="sm:col-span-1">
-                  <label htmlFor="email" className="block font-mono text-xs text-text-dim mb-2">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-lg border border-line bg-void/50 px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none focus:border-signal-2/60"
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="message" className="block font-mono text-xs text-text-dim mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={5}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="w-full resize-none rounded-lg border border-line bg-void/50 px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none focus:border-signal-2/60"
-                    placeholder="What are you looking to build?"
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="card p-6 md:p-8" noValidate>
+              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                <InputField
+                  label="Name"
+                  id="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => { setName(e.target.value); if (errors.name) setErrors({ ...errors, name: "" }); }}
+                  placeholder="Your name"
+                  error={errors.name}
+                />
+                <InputField
+                  label="Email"
+                  id="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                  placeholder="you@example.com"
+                  error={errors.email}
+                />
               </div>
+              <TextareaField
+                label="Message"
+                id="message"
+                required
+                value={message}
+                onChange={(e) => { setMessage(e.target.value); if (errors.message) setErrors({ ...errors, message: "" }); }}
+                placeholder="What are you looking to build?"
+                error={errors.message}
+              />
 
               <div className="mt-6 flex items-center gap-4 flex-wrap">
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="inline-flex items-center gap-2 rounded-lg bg-signal px-5 py-3 font-mono text-sm font-medium text-void transition-all hover:bg-signal-2 disabled:opacity-60"
+                  className="btn btn-primary flex items-center gap-2"
                 >
-                  <Send size={15} />
+                  <SendIcon width={16} height={16} />
                   {status === "sending" ? "Sending..." : "Submit"}
                 </button>
 
-                {status === "sent" && (
-                  <span className="flex items-center gap-1.5 text-signal-2 text-sm font-mono">
-                    <CheckCircle2 size={15} />
-                    {isEmailJsConfigured ? "Message sent." : "Opening your email client..."}
-                  </span>
-                )}
-                {status === "error" && (
-                  <span className="flex items-center gap-1.5 text-warn text-sm font-mono">
-                    <AlertCircle size={15} />
-                    Something went wrong — email me directly instead.
-                  </span>
-                )}
+                <AnimatePresence mode="wait">
+                  {status === "sent" && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="flex items-center gap-1.5 font-mono text-sm text-teal"
+                    >
+                      <CheckIcon width={16} height={16} />
+                      {isEmailJsConfigured ? "Message sent successfully." : "Opening your email client..."}
+                    </motion.span>
+                  )}
+                  {status === "error" && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="flex items-center gap-1.5 font-mono text-sm text-red-500"
+                    >
+                      <AlertCircleIcon width={16} height={16} />
+                      Something went wrong — email me directly instead.
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </div>
 
               {!isEmailJsConfigured && (
                 <p className="mt-4 text-xs text-text-faint font-mono leading-relaxed">
                   Submitting opens your email client addressed to {profile.email}. To send
-                  messages directly from this form, configure EmailJS env vars — see
-                  .env.example.
+                  messages directly from this form, configure EmailJS env vars — see .env.example.
                 </p>
               )}
             </form>

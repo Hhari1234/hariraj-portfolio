@@ -31,13 +31,19 @@ export interface ProjectEntry {
   github?: string;
   liveDemo?: string | null;
   featured?: boolean;
+  repoUrl?: string | null;
+  liveUrl?: string | null;
+  status?: string;
+  highlights?: string[];
+  stack?: string[];
 }
 
 export interface CertificationEntry {
   name: string;
   issuer: string;
-  year?: string;
+  year?: string | null;
   url?: string | null;
+  credentialUrl?: string | null;
 }
 
 export interface EducationEntry {
@@ -45,4 +51,21 @@ export interface EducationEntry {
   institution: string;
   duration: string;
   detail?: string;
+}
+
+export interface Profile {
+  name: string;
+  initials: string;
+  location: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  github: string;
+  graduationYear: string;
+  primaryTitle: string;
+  roles: string[];
+  summary: string;
+  heroDescription: string;
+  resumeUrl: string;
+  availability?: string;
 }
