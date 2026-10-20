@@ -28,14 +28,10 @@ export interface ProjectEntry {
   description: string;
   tech: string[];
   bullets?: string[];
-  github?: string;
-  liveDemo?: string | null;
   featured?: boolean;
   repoUrl?: string | null;
   liveUrl?: string | null;
   status?: string;
-  highlights?: string[];
-  stack?: string[];
   pipeline?: string[];
 }
 

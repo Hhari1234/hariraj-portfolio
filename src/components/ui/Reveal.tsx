@@ -2,8 +2,6 @@ import type { ReactNode } from "react";
 
 interface RevealProps {
   children?: ReactNode;
-  delay?: number;
-  y?: number;
   className?: string;
 }
 

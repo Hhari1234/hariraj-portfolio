@@ -1,6 +1,6 @@
 import { type ReactNode, type AnchorHTMLAttributes } from "react";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary";
 
 interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode;
@@ -20,7 +20,6 @@ export function Button({
   const variants: Record<Variant, string> = {
     primary: "btn-primary",
     secondary: "btn-secondary",
-    ghost: "btn-ghost",
   };
 
   return (

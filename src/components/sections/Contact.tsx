@@ -237,7 +237,7 @@ export function Contact() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <Reveal>
             <form onSubmit={handleSubmit} className="card p-6 md:p-8" noValidate>
               <div className="grid sm:grid-cols-2 gap-4 mb-4">
                 <InputField

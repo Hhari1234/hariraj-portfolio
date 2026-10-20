@@ -48,7 +48,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         )}
 
         <div className="flex flex-wrap gap-2 mb-6">
-          {project.stack?.map((tech) => (
+          {project.tech.map((tech) => (
             <span key={tech} className="tech-chip">{tech}</span>
           ))}
         </div>
