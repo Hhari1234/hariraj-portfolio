@@ -36,6 +36,7 @@ export interface ProjectEntry {
   status?: string;
   highlights?: string[];
   stack?: string[];
+  pipeline?: string[];
 }
 
 export interface CertificationEntry {

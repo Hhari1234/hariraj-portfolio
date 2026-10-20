@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Button } from "@/components/ui/Button";
 import { ArrowUpRightIcon, GithubIcon } from "@/components/ui/BrandIcons";
 import { profile } from "@/data/profile";
 
@@ -12,44 +11,40 @@ export function GitHubActivity() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <section id="github" className="py-20 md:py-28 relative">
+    <section id="github" className="py-24 md:py-32 relative">
       <div className="container relative">
         <SectionHeader
           index="06"
           eyebrow="Developer Activity"
           title="Building in public on GitHub."
-          description="Open-source contributions and projects — contribution graph rendered live from GitHub data."
-          align="center"
+          description="Open-source contributions and projects - contribution graph rendered live from GitHub data."
         />
 
         <Reveal>
-          <div className="card p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10 mb-8">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center">
-                  <GithubIcon width={24} height={24} className="text-gold" />
-                </div>
-                <div>
-                  <h3 className="text-text font-medium text-lg">@{username}</h3>
-                  <p className="text-text-muted text-sm">github.com/{username}</p>
-                </div>
+          <div className="card p-6 md:p-8 min-w-0">
+            <div className="card-head mb-8">
+              <div className="card-icon card-icon--lg">
+                <GithubIcon width={22} height={22} />
               </div>
-              <Button
+              <div className="card-text">
+                <h3 className="text-text font-medium text-lg">@{username}</h3>
+                <p className="text-muted text-sm break-words">github.com/{username}</p>
+              </div>
+              <a
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer noopener"
-                variant="secondary"
-                icon={<ArrowUpRightIcon width={15} height={15} />}
-                className="md:ml-auto self-center"
+                className="btn btn-secondary shrink-0 !min-h-[40px] !px-4 !py-2"
               >
-                View Profile
-              </Button>
+                View profile
+                <ArrowUpRightIcon width={15} height={15} />
+              </a>
             </div>
 
             {!imgError ? (
-              <div className="rounded-lg border border-border bg-surface-elevated p-3 overflow-x-auto relative">
+              <div className="rounded-xl border border-line bg-surface-2 p-3 overflow-x-auto relative min-w-0">
                 {!loaded && (
-                  <div className="absolute inset-0 flex items-center justify-center text-text-faint font-mono text-sm">
+                  <div className="absolute inset-0 flex items-center justify-center text-subtle font-mono text-sm">
                     Loading contribution graph...
                   </div>
                 )}
@@ -61,17 +56,17 @@ export function GitHubActivity() {
                   onLoad={() => setLoaded(true)}
                   onError={() => setImgError(true)}
                   className="w-full min-w-[600px] block"
-                  style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.3s ease" }}
+                  style={{ opacity: loaded ? 1 : 0 }}
                 />
               </div>
             ) : (
-              <div className="rounded-lg border border-border bg-surface-elevated p-8 text-center text-text-muted text-sm font-mono">
-                Contribution graph unavailable — view activity directly on GitHub.
+              <div className="rounded-xl border border-line bg-surface-2 p-8 text-center text-muted text-sm font-mono">
+                Contribution graph unavailable - view activity directly on GitHub.
               </div>
             )}
 
-            <p className="mt-4 text-text-faint text-xs font-mono">
-              Chart rendered live from GitHub's public contribution data — nothing here is
+            <p className="mt-4 text-subtle text-xs font-mono">
+              Chart rendered live from GitHub's public contribution data - nothing here is
               fabricated or estimated.
             </p>
           </div>

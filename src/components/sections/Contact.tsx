@@ -15,11 +15,11 @@ const isEmailJsConfigured = Boolean(
 );
 
 const contactInfo = [
-  { icon: MailIcon, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-  { icon: PhoneIcon, label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
-  { icon: MapPinIcon, label: "Location", value: profile.location, href: undefined },
-  { icon: GithubIcon, label: "GitHub", value: "github.com/Hhari1234", href: profile.github },
-  { icon: LinkedinIcon, label: "LinkedIn", value: "linkedin.com/in/hariraj-k-63735b261", href: profile.linkedin },
+  { icon: MailIcon, label: "Email", value: profile.email, href: `mailto:${profile.email}`, copyable: true },
+  { icon: PhoneIcon, label: "Phone", value: profile.phone, href: `tel:${profile.phone}`, copyable: true },
+  { icon: MapPinIcon, label: "Location", value: profile.location, href: undefined, copyable: false },
+  { icon: GithubIcon, label: "GitHub", value: "github.com/Hhari1234", href: profile.github, copyable: true },
+  { icon: LinkedinIcon, label: "LinkedIn", value: "linkedin.com/in/hariraj-k-63735b261", href: profile.linkedin, copyable: true },
 ];
 
 function InputField({
@@ -45,7 +45,7 @@ function InputField({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block font-mono text-xs text-text-muted mb-2">
+      <label htmlFor={id} className="block font-mono text-xs text-muted mb-2">
         {label} {required && <span className="text-gold">*</span>}
       </label>
       <input
@@ -59,7 +59,7 @@ function InputField({
         className={`w-full rounded-lg border px-4 py-3 text-sm text-text placeholder:text-subtle outline-none transition-colors ${
           error
             ? "border-red-500 focus:border-red-500 bg-red-500/5"
-            : "border-border focus:border-gold bg-surface-2"
+            : "border-line focus:border-gold bg-surface-2"
         }`}
         placeholder={placeholder}
         aria-invalid={error ? "true" : "false"}
@@ -93,7 +93,7 @@ function TextareaField({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block font-mono text-xs text-text-muted mb-2">
+      <label htmlFor={id} className="block font-mono text-xs text-muted mb-2">
         {label} {required && <span className="text-gold">*</span>}
       </label>
       <textarea
@@ -106,7 +106,7 @@ function TextareaField({
         className={`w-full resize-none rounded-lg border px-4 py-3 text-sm text-text placeholder:text-subtle outline-none transition-colors ${
           error
             ? "border-red-500 focus:border-red-500 bg-red-500/5"
-            : "border-border focus:border-gold bg-surface-2"
+            : "border-line focus:border-gold bg-surface-2"
         }`}
         placeholder={placeholder}
         aria-invalid={error ? "true" : "false"}
@@ -127,6 +127,17 @@ export function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const copyToClipboard = async (value: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch {
+      /* clipboard unavailable - silently ignore */
+    }
+    setCopied(label);
+    window.setTimeout(() => setCopied((c) => (c === label ? null : c)), 1800);
+  };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -183,26 +194,44 @@ export function Contact() {
 
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 max-w-5xl mx-auto">
           <Reveal>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {contactInfo.map((item) => {
                 const Icon = item.icon;
+                const copyable = item.copyable;
                 return (
-                  <a
+                  <div
                     key={item.label}
-                    href={item.href ?? "#"}
-                    target={item.href?.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href?.startsWith("http") ? "noreferrer noopener" : undefined}
-                    className={`flex items-center gap-4 card p-4 card-gold group ${!item.href ? "cursor-default" : ""}`}
-                    aria-label={item.label}
+                    className="flex items-center gap-4 card p-4 card-gold min-w-0"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
+                    <div className="card-icon shrink-0">
+                      <Icon className="w-5 h-5" aria-hidden="true" />
                     </div>
-                    <div>
-                      <div className="font-mono text-xs uppercase tracking-wider text-text-muted">{item.label}</div>
+                    <div className="card-text">
+                      <div className="font-mono text-xs uppercase tracking-wider text-muted">
+                        {item.label}
+                      </div>
                       <div className="text-text text-sm mt-0.5 break-words">{item.value}</div>
                     </div>
-                  </a>
+                    {copyable ? (
+                      <button
+                        type="button"
+                        onClick={() => copyToClipboard(item.value, item.label)}
+                        className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-subtle hover:text-gold transition-colors px-2 py-1"
+                        aria-label={`Copy ${item.label}`}
+                      >
+                        {copied === item.label ? "Copied" : "Copy"}
+                      </button>
+                    ) : item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined}
+                        className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-subtle hover:text-gold transition-colors px-2 py-1"
+                      >
+                        Open
+                      </a>
+                    ) : null}
+                  </div>
                 );
               })}
             </div>

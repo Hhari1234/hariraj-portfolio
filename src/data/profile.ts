@@ -155,6 +155,13 @@ export const featuredProjects: ProjectEntry[] = [
       "Docker containerized",
     ],
     stack: ["React", "TypeScript", "FastAPI", "PostgreSQL", "ChromaDB", "JWT", "Docker"],
+    pipeline: [
+      "Prompt + repo context",
+      "Code chunking + embeddings",
+      "Vector search + retrieval",
+      "LLM reasoning",
+      "Project workspace output",
+    ],
   },
   {
     id: "ai-code-reviewer",
@@ -179,6 +186,13 @@ export const featuredProjects: ProjectEntry[] = [
       "Docker containerized",
     ],
     stack: ["Python", "Gemini API", "GitHub Actions", "GitHub REST API", "Docker"],
+    pipeline: [
+      "PR diff via GitHub REST API",
+      "Severity & security checks",
+      "Gemini API analysis",
+      "LLM response parsing",
+      "Review comment published",
+    ],
   },
 ];
 
@@ -281,21 +295,30 @@ export const certifications: CertificationEntry[] = [
   },
 ];
 
-export const featuredProject = featuredProjects[0];
-export const featuredProjectFeatures = [
-  "Code generation",
-  "Documentation",
-  "Code review",
-  "Repository analysis",
-  "RAG chat",
-  "Project management",
-];
-export const architectureStages = [
-  "Prompt + repo context",
-  "Code chunking + embeddings",
-  "Vector search + retrieval",
-  "LLM reasoning",
-  "Project workspace output",
+export const siteUrl = "https://hariraj-portfolio-1.vercel.app";
+
+const MONTHS = [
+  "jan", "feb", "mar", "apr", "may", "jun",
+  "jul", "aug", "sep", "oct", "nov", "dec",
 ];
 
-export const siteUrl = "https://hariraj-portfolio-1.vercel.app";
+/**
+ * Elapsed whole months between the first and last month of a duration
+ * string such as "Aug 2025 - Jun 2026". Derived from the CV dates, never
+ * hard-coded.
+ */
+export function durationToMonths(duration: string): number {
+  const parts = duration.split(/[–\-—]/).map((p) => p.trim());
+  if (parts.length < 2) return 0;
+  const parse = (s: string) => {
+    const [m, y] = s.split(/\s+/);
+    const mi = MONTHS.indexOf(m.slice(0, 3).toLowerCase());
+    return { mi, yi: Number(y) };
+  };
+  const a = parse(parts[0]);
+  const b = parse(parts[parts.length - 1]);
+  if (a.mi < 0 || b.mi < 0 || Number.isNaN(a.yi) || Number.isNaN(b.yi)) return 0;
+  return (b.yi - a.yi) * 12 + (b.mi - a.mi);
+}
+
+export const nokiaInternshipMonths = durationToMonths(experience[0]?.duration ?? "");

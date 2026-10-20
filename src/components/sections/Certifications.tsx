@@ -5,7 +5,7 @@ import { AwardIcon, GlobeIcon } from "@/components/ui/BrandIcons";
 
 export function Certifications() {
   return (
-    <section id="certifications" className="py-20 md:py-28 relative">
+    <section id="certifications" className="py-24 md:py-32 relative">
       <div className="container relative">
         <SectionHeader
           index="05"
@@ -15,25 +15,27 @@ export function Certifications() {
         />
 
         <Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {certifications.map((cert) => (
-              <article key={cert.name} className="card p-6 card-gold relative overflow-hidden">
-                <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-4">
-                  <AwardIcon className="w-6 h-6 text-gold" aria-hidden="true" />
+              <article key={cert.name} className="card p-6 card-gold min-w-0">
+                <div className="card-head mb-4">
+                  <div className="card-icon">
+                    <AwardIcon className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                  <h3 className="card-text font-display text-lg font-normal text-text leading-snug">
+                    {cert.name}
+                  </h3>
                 </div>
-                <h3 className="font-display text-lg font-medium text-text mb-2 leading-snug">
-                  {cert.name}
-                </h3>
-                <p className="text-text-muted text-sm mb-2">{cert.issuer}</p>
+                <p className="text-muted text-sm mt-3">{cert.issuer}</p>
                 {cert.year && (
-                  <p className="font-mono text-xs text-gold mb-2">{cert.year}</p>
+                  <p className="font-mono text-xs text-gold mt-2">{cert.year}</p>
                 )}
                 {(cert.url || cert.credentialUrl) && (
                   <a
                     href={cert.credentialUrl || cert.url!}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1.5 font-mono text-xs text-gold hover:text-gold/70 transition-colors mt-2"
+                    className="inline-flex items-center gap-1.5 font-mono text-xs text-gold hover:text-gold/70 transition-colors mt-3"
                     aria-label={`View credential for ${cert.name}`}
                   >
                     Verify

@@ -5,9 +5,9 @@ import { profile } from "@/data/profile";
 
 function StatusPill() {
   return (
-    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-border">
+    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-line">
       <span className="w-2 h-2 rounded-full bg-teal" aria-hidden="true" />
-      <span className="font-mono text-xs text-text-muted">{profile.availability}</span>
+      <span className="font-mono text-xs text-muted">{profile.availability}</span>
     </div>
   );
 }
@@ -20,7 +20,7 @@ function SocialLinks() {
         target="_blank"
         rel="noreferrer noopener"
         aria-label="GitHub profile"
-        className="p-3 rounded-full bg-surface border border-border hover:border-gold hover:text-gold transition-all"
+        className="p-3 rounded-full bg-surface border border-line hover:border-gold hover:text-gold transition-all"
       >
         <GithubIcon width={20} height={20} />
       </a>
@@ -29,14 +29,14 @@ function SocialLinks() {
         target="_blank"
         rel="noreferrer noopener"
         aria-label="LinkedIn profile"
-        className="p-3 rounded-full bg-surface border border-border hover:border-gold hover:text-gold transition-all"
+        className="p-3 rounded-full bg-surface border border-line hover:border-gold hover:text-gold transition-all"
       >
         <LinkedinIcon width={20} height={20} />
       </a>
       <a
         href={`mailto:${profile.email}`}
         aria-label="Send email"
-        className="p-3 rounded-full bg-surface border border-border hover:border-gold hover:text-gold transition-all"
+        className="p-3 rounded-full bg-surface border border-line hover:border-gold hover:text-gold transition-all"
       >
         <MailIcon width={20} height={20} />
       </a>
@@ -58,15 +58,15 @@ export function Hero() {
               <span className="text-gold">Kuragayala</span>
             </h1>
 
-            <p className="mt-4 font-mono text-xs uppercase tracking-wider text-text-muted">
+            <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted">
               Software Engineer . Backend . AI . Full-Stack
             </p>
 
             <div className="mt-8 space-y-3 max-w-[62ch]">
-              <p className="text-text-muted text-base md:text-lg leading-[1.75]">
+              <p className="text-muted text-base md:text-lg leading-[1.75]">
                 Integrated M.Tech graduate in Software Engineering from VIT Vellore. Experienced in backend development, testing, and DevOps at Nokia.
               </p>
-              <p className="text-text-muted text-base md:text-lg leading-[1.75]">
+              <p className="text-muted text-base md:text-lg leading-[1.75]">
                 Building full-stack applications and AI-powered developer tools with a focus on reliable, maintainable code.
               </p>
             </div>
@@ -90,7 +90,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative lg:min-h-[520px] w-full min-w-0">
+          <div className="relative w-full min-w-0 order-first lg:order-none">
             <ProfilePhoto />
           </div>
         </div>

@@ -32,11 +32,13 @@ export function Skills() {
               const Icon = categoryIcons[cat.icon] || CodeIcon;
               return (
                 <article key={cat.id} className="card p-6 card-gold">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
+                  <div className="card-head mb-4">
+                    <div className="card-icon">
+                      <Icon className="w-5 h-5" aria-hidden="true" />
                     </div>
-                    <h3 className="font-display text-lg font-medium text-text">{cat.label}</h3>
+                    <h3 className="card-text font-display text-lg font-normal text-text leading-snug">
+                      {cat.label}
+                    </h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill) => (
