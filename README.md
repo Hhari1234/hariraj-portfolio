@@ -37,6 +37,8 @@ node scripts/behavior-check.mjs   # scroll progress, back-to-top, active nav, fo
 node scripts/section-report.mjs   # per-section geometry, contrast ratios, portrait size
 node scripts/verify-content.mjs   # stats, card icon sizes, section order
 node scripts/screenshots.mjs      # full-page screenshots at 390/768/1440/1920
+node scripts/link-check.mjs       # HTTP status of every repo / live demo / credential URL
+node scripts/live-link-dump.mjs   # external links actually rendered by the deployed site
 ```
 
 ## Deployment and metadata
