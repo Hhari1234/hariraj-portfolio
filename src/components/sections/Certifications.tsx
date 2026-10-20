@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { certifications } from "@/data/profile";
@@ -7,7 +6,6 @@ import { AwardIcon, GlobeIcon } from "@/components/ui/BrandIcons";
 export function Certifications() {
   return (
     <section id="certifications" className="py-20 md:py-28 relative">
-      <div className="film-grain" aria-hidden="true" />
       <div className="container relative">
         <SectionHeader
           index="05"
@@ -16,17 +14,10 @@ export function Certifications() {
           align="center"
         />
 
-        <Reveal delay={0.1}>
+        <Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {certifications.map((cert, i) => (
-              <motion.article
-                key={cert.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: 0.1 + i * 0.08, duration: 0.5 }}
-                className="card p-6 card-gold relative overflow-hidden"
-              >
+            {certifications.map((cert) => (
+              <article key={cert.name} className="card p-6 card-gold relative overflow-hidden">
                 <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-4">
                   <AwardIcon className="w-6 h-6 text-gold" aria-hidden="true" />
                 </div>
@@ -49,7 +40,7 @@ export function Certifications() {
                     <GlobeIcon width={12} height={12} />
                   </a>
                 )}
-              </motion.article>
+              </article>
             ))}
           </div>
         </Reveal>

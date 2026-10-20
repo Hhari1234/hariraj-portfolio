@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { profile } from "@/data/profile";
@@ -57,10 +56,10 @@ function InputField({
         autoComplete={autoComplete}
         value={value}
         onChange={onChange}
-        className={`w-full rounded-lg border px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none transition-colors ${
+        className={`w-full rounded-lg border px-4 py-3 text-sm text-text placeholder:text-subtle outline-none transition-colors ${
           error
             ? "border-red-500 focus:border-red-500 bg-red-500/5"
-            : "border-border focus:border-gold bg-surface-elevated"
+            : "border-border focus:border-gold bg-surface-2"
         }`}
         placeholder={placeholder}
         aria-invalid={error ? "true" : "false"}
@@ -104,10 +103,10 @@ function TextareaField({
         rows={5}
         value={value}
         onChange={onChange}
-        className={`w-full resize-none rounded-lg border px-4 py-3 text-sm text-text placeholder:text-text-faint outline-none transition-colors ${
+        className={`w-full resize-none rounded-lg border px-4 py-3 text-sm text-text placeholder:text-subtle outline-none transition-colors ${
           error
             ? "border-red-500 focus:border-red-500 bg-red-500/5"
-            : "border-border focus:border-gold bg-surface-elevated"
+            : "border-border focus:border-gold bg-surface-2"
         }`}
         placeholder={placeholder}
         aria-invalid={error ? "true" : "false"}
@@ -172,8 +171,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-28 relative">
-      <div className="film-grain" aria-hidden="true" />
+    <section id="contact" className="py-24 md:py-32 relative">
       <div className="container relative">
         <SectionHeader
           index="07"
@@ -189,11 +187,8 @@ export function Contact() {
               {contactInfo.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <motion.a
+                  <a
                     key={item.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
                     href={item.href ?? "#"}
                     target={item.href?.startsWith("http") ? "_blank" : undefined}
                     rel={item.href?.startsWith("http") ? "noreferrer noopener" : undefined}
@@ -207,7 +202,7 @@ export function Contact() {
                       <div className="font-mono text-xs uppercase tracking-wider text-text-muted">{item.label}</div>
                       <div className="text-text text-sm mt-0.5 break-words">{item.value}</div>
                     </div>
-                  </motion.a>
+                  </a>
                 );
               })}
             </div>
@@ -259,34 +254,22 @@ export function Contact() {
                   {status === "sending" ? "Sending..." : "Submit"}
                 </button>
 
-                <AnimatePresence mode="wait">
-                  {status === "sent" && (
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="flex items-center gap-1.5 font-mono text-sm text-teal"
-                    >
-                      <CheckIcon width={16} height={16} />
-                      {isEmailJsConfigured ? "Message sent successfully." : "Opening your email client..."}
-                    </motion.span>
-                  )}
-                  {status === "error" && (
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="flex items-center gap-1.5 font-mono text-sm text-red-500"
-                    >
-                      <AlertCircleIcon width={16} height={16} />
-                      Something went wrong — email me directly instead.
-                    </motion.span>
-                  )}
-                </AnimatePresence>
+                {status === "sent" && (
+                  <span className="flex items-center gap-1.5 font-mono text-sm text-teal">
+                    <CheckIcon width={16} height={16} />
+                    {isEmailJsConfigured ? "Message sent successfully." : "Opening your email client..."}
+                  </span>
+                )}
+                {status === "error" && (
+                  <span className="flex items-center gap-1.5 font-mono text-sm text-red-500">
+                    <AlertCircleIcon width={16} height={16} />
+                    Something went wrong — email me directly instead.
+                  </span>
+                )}
               </div>
 
               {!isEmailJsConfigured && (
-                <p className="mt-4 text-xs text-text-faint font-mono leading-relaxed">
+                <p className="mt-4 text-xs text-subtle font-mono leading-relaxed">
                   Submitting opens your email client addressed to {profile.email}. To send
                   messages directly from this form, configure EmailJS env vars — see .env.example.
                 </p>

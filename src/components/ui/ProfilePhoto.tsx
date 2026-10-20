@@ -1,17 +1,11 @@
-import { motion } from "framer-motion";
-
 export function ProfilePhoto() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative w-full max-w-[360px] aspect-square mx-auto"
+    <div
+      className="relative w-full max-w-[360px] aspect-[4/5] mx-auto"
       role="img"
       aria-label="Hariraj Kuragayala - Software Engineer"
     >
-      <div className="absolute inset-0 rounded-2xl border border-gold/30 shadow-gold" />
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/5 via-transparent to-teal/5" />
+      <div className="absolute inset-0 rounded-2xl border border-gold/30" />
       <picture className="relative rounded-2xl overflow-hidden">
         <source
           srcSet="
@@ -41,14 +35,12 @@ export function ProfilePhoto() {
           sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 360px"
           alt="Hariraj Kuragayala - Software Engineer"
           width={360}
-          height={360}
+          height={450}
           loading="eager"
           decoding="async"
           className="w-full h-full object-cover object-top"
         />
       </picture>
-      <div className="absolute -bottom-6 -right-6 w-16 h-16 rounded-2xl border-2 border-gold bg-surface/80 backdrop-blur-sm flex items-center justify-center" />
-      <div className="absolute -top-4 -left-4 w-2 h-2 rounded-full bg-gold animate-pulse-dot" />
-    </motion.div>
+    </div>
   );
 }

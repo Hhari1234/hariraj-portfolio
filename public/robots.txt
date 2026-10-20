@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hariraj-portfolio.vercel.app/sitemap.xml
-# TODO: replace the placeholder domain with the real production URL when deployed.
+Sitemap: https://hariraj-portfolio-1.vercel.app/sitemap.xml

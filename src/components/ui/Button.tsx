@@ -1,14 +1,8 @@
 import { type ReactNode, type AnchorHTMLAttributes } from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
 
 type Variant = "primary" | "secondary" | "ghost";
 
-type SafeAnchorProps = Omit<
-  AnchorHTMLAttributes<HTMLAnchorElement>,
-  keyof HTMLMotionProps<"a">
->;
-
-interface ButtonProps extends SafeAnchorProps, Omit<HTMLMotionProps<"a">, "children"> {
+interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode;
   variant?: Variant;
   icon?: ReactNode;
@@ -30,13 +24,9 @@ export function Button({
   };
 
   return (
-    <motion.a
-      whileTap={{ scale: 0.98 }}
-      className={`${base} ${variants[variant]} ${className}`}
-      {...rest}
-    >
+    <a className={`${base} ${variants[variant]} ${className}`} {...rest}>
       {children}
       {icon}
-    </motion.a>
+    </a>
   );
 }

@@ -34,9 +34,9 @@ export const profile = {
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ];
@@ -298,4 +298,4 @@ export const architectureStages = [
   "Project workspace output",
 ];
 
-export const siteUrl = "https://hariraj-portfolio.vercel.app";
+export const siteUrl = "https://hariraj-portfolio-1.vercel.app";

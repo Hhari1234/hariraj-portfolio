@@ -1,5 +1,4 @@
-import { useState, Suspense, lazy } from "react";
-import { LoadingScreen } from "@/components/layout/LoadingScreen";
+import { Suspense, lazy } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Footer } from "@/components/layout/Footer";
@@ -7,7 +6,6 @@ import { Footer } from "@/components/layout/Footer";
 const About = lazy(() => import("@/components/sections/About").then((m) => ({ default: m.About })));
 const Skills = lazy(() => import("@/components/sections/Skills").then((m) => ({ default: m.Skills })));
 const Experience = lazy(() => import("@/components/sections/Experience").then((m) => ({ default: m.Experience })));
-const FeaturedProject = lazy(() => import("@/components/sections/FeaturedProject").then((m) => ({ default: m.FeaturedProject })));
 const Projects = lazy(() => import("@/components/sections/Projects").then((m) => ({ default: m.Projects })));
 const Certifications = lazy(() => import("@/components/sections/Certifications").then((m) => ({ default: m.Certifications })));
 const GitHubActivity = lazy(() => import("@/components/sections/GitHubActivity").then((m) => ({ default: m.GitHubActivity })));
@@ -23,20 +21,16 @@ function SectionFallback() {
 }
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
   return (
     <>
-      {loading && <LoadingScreen onDone={() => setLoading(false)} />}
       <Navbar />
       <main>
         <Hero />
         <Suspense fallback={<SectionFallback />}>
           <About />
-          <Skills />
           <Experience />
-          <FeaturedProject />
           <Projects />
+          <Skills />
           <Certifications />
           <GitHubActivity />
           <Contact />

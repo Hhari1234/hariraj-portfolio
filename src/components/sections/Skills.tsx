@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { skillCategories } from "@/data/profile";
@@ -17,44 +16,34 @@ const categoryIcons: Record<string, React.ComponentType<React.SVGProps<SVGSVGEle
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20 md:py-28 relative">
-      <div className="film-grain" aria-hidden="true" />
+    <section id="skills" className="py-24 md:py-32 relative">
       <div className="container relative">
         <SectionHeader
-          index="03"
+          index="04"
           eyebrow="Skills"
           title="Technologies and tools I work with across the stack."
-          description="Grouped by domain — hover a category to explore."
+          description="Grouped by domain."
           align="center"
         />
 
-        <Reveal delay={0.1}>
+        <Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {skillCategories.map((cat, i) => {
+            {skillCategories.map((cat) => {
               const Icon = categoryIcons[cat.icon] || CodeIcon;
               return (
-                <motion.article
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: 0.1 + i * 0.06, duration: 0.5 }}
-                  className="card p-6 card-gold group"
-                >
+                <article key={cat.id} className="card p-6 card-gold">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0">
                       <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
                     </div>
                     <h3 className="font-display text-lg font-medium text-text">{cat.label}</h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill) => (
-                      <span key={skill} className="tech-chip group-hover:border-gold group-hover:text-gold group-hover:bg-gold/10 transition-all">
-                        {skill}
-                      </span>
+                      <span key={skill} className="tech-chip">{skill}</span>
                     ))}
                   </div>
-                </motion.article>
+                </article>
               );
             })}
           </div>

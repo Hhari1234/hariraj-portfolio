@@ -1,17 +1,17 @@
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeftIcon, GithubIcon, LinkedinIcon, MailIcon, FileDownIcon } from "@/components/ui/BrandIcons";
 import { profile, navLinks } from "@/data/profile";
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const { scrollYProgress } = useScroll();
-  const showBackToTop = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
   const [isBackToTopVisible, setIsBackToTopVisible] = useState(false);
 
-  useMotionValueEvent(showBackToTop, "change", (latest) => {
-    setIsBackToTopVisible(latest > 0.5);
-  });
+  useEffect(() => {
+    const onScroll = () => setIsBackToTopVisible(window.scrollY > 220);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -19,14 +19,9 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-border py-12 md:py-16">
-      <div className="film-grain" aria-hidden="true" />
       <div className="container relative">
         <div className="grid md:grid-cols-3 gap-10 mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-          >
+          <div>
             <a href="#home" className="font-display font-semibold text-xl text-text inline-block mb-4">
               HK<span className="text-gold">.</span>
             </a>
@@ -35,15 +30,9 @@ export function Footer() {
               <br />
               Software Engineer &bull; AI Developer
             </p>
-          </motion.div>
+          </div>
 
-          <motion.nav
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: 0.1 }}
-            aria-label="Footer navigation"
-          >
+          <nav aria-label="Footer navigation">
             <div className="font-mono text-xs uppercase tracking-wider text-text-muted mb-4">Navigate</div>
             <ul className="grid grid-cols-2 gap-3 text-sm">
               {navLinks.map((link) => (
@@ -54,14 +43,9 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.nav>
+          </nav>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: 0.2 }}
-          >
+          <div>
             <div className="font-mono text-xs uppercase tracking-wider text-text-muted mb-4">Connect</div>
             <div className="flex items-center gap-3">
               <a href={profile.github} target="_blank" rel="noreferrer noopener" aria-label="GitHub profile" className="link-icon p-2 rounded-lg bg-surface-elevated border border-border hover:border-gold/50 transition-all">
@@ -77,27 +61,21 @@ export function Footer() {
                 <FileDownIcon width={20} height={20} />
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-text-muted"
-        >
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-text-muted">
           <span>&copy; {year} {profile.name}. All rights reserved.</span>
-          <span>Built with React, TypeScript, Tailwind CSS & Framer Motion</span>
-        </motion.div>
+          <span>Built with React, TypeScript, and Tailwind CSS</span>
+        </div>
 
-        <motion.button
+        <button
           onClick={scrollToTop}
           className={`fixed bottom-8 right-8 z-50 p-3 rounded-full bg-surface border border-border link-icon shadow-lg transition-all ${isBackToTopVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-          style={{ opacity: showBackToTop }}
           aria-label="Back to top"
         >
           <ArrowLeftIcon width={20} height={20} />
-        </motion.button>
+        </button>
       </div>
     </footer>
   );

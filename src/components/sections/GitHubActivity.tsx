@@ -13,7 +13,6 @@ export function GitHubActivity() {
 
   return (
     <section id="github" className="py-20 md:py-28 relative">
-      <div className="film-grain" aria-hidden="true" />
       <div className="container relative">
         <SectionHeader
           index="06"
